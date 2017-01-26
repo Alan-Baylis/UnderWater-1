@@ -8,6 +8,7 @@ public class PlayerShellControl : MonoBehaviour {
 	public float speedDown = 1.5f;
 	public int touchCount = 0;
 	public float shakeTimer = 0.0f;
+	public Vector3 movement;
 	
 	private Rigidbody rb;
 
@@ -33,12 +34,6 @@ public class PlayerShellControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		// fast check 
-		//		if (Input.GetKeyDown (KeyCode.Alpha0)) 
-		//		{
-		//			hasWon = true;
-		//		}
-
 		if (hasWon == true) 
 		{
 			GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Win();
@@ -63,7 +58,7 @@ public class PlayerShellControl : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+		movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce (movement * speed);
 	}

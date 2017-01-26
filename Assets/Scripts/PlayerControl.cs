@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour {
 	float lightAmplitudeControl = 0.3f;
 	float oriLtRange;
 	Light playerLight;
+	public GameObject playerShell;
 	
 	// Use this for initialization
 	void Start () 
@@ -17,6 +18,11 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		transform.position = playerShell.transform.position;
+
+		// shooting a raycast to the direction player moving to 
+		Debug.DrawRay(transform.position, playerShell.GetComponent<PlayerShellControl> ().movement, Color.green);
+
 		float amplitude = (Mathf.Sin (2.0f * Time.time) + 1.0f) * lightAmplitudeControl;
 
 		GameObject dest = GameObject.Find ("WhiteCube");
@@ -33,7 +39,7 @@ public class PlayerControl : MonoBehaviour {
 		playerLight.range = oriLtRange * (1f + 0.15f * amplitude + 0.07f * (oriDistToDest - distToDest));
 
 //		//Example of distance
-//		Vector3 rndCubePos = new Vector3 (Rand	om.Range(1.0f, 22.0f), 3.0f, Random.Range(8.0f, 11.0f));
+//		Vector3 rndCubePos = new Vector3 (Random.Range(1.0f, 22.0f), 3.0f, Random.Range(8.0f, 11.0f));
 //		float dist = Vector3.Distance(transform.position, rndCubePos);
 	}
 }
