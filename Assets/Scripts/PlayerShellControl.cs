@@ -9,6 +9,7 @@ public class PlayerShellControl : MonoBehaviour {
 	public int touchCount = 0;
 	public float shakeTimer = 0.0f;
 	public Vector3 movement;
+	public GameObject player;
 	
 	private Rigidbody rb;
 

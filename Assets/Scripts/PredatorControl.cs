@@ -3,10 +3,10 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-public class FollowerControl : MonoBehaviour {
+public class PredatorControl : MonoBehaviour {
 
 	public GameObject player;
-	public GameObject follower;
+	//public GameObject follower;
 
 	public float moveForce = 5f;
 	public float followDistMax = 3.0f;
@@ -20,7 +20,7 @@ public class FollowerControl : MonoBehaviour {
 	void Start () 
 	{
 		player = GameObject.Find ("Player");
-		follower = gameObject;
+		//follower = gameObject;
 		rbFollower = GetComponent<Rigidbody> ();
 	}
 	
@@ -28,7 +28,7 @@ public class FollowerControl : MonoBehaviour {
 	void Update () 
 	{	
 		float distToPlayer;
-		distToPlayer = Vector3.Distance(player.transform.position, follower.transform.position);
+		distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 		if (distToPlayer < followDistMax) 
 		{
 				follow();

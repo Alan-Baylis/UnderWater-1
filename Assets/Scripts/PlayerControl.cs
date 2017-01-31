@@ -18,10 +18,10 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.position = playerShell.transform.position;
+		//transform.position = playerShell.transform.position;
 
 		// shooting a raycast to the direction player moving to 
-		Debug.DrawRay(transform.position, playerShell.GetComponent<PlayerShellControl> ().movement, Color.green);
+		//Debug.DrawRay(transform.position, playerShell.GetComponent<PlayerShellControl> ().movement, Color.green);
 
 		float amplitude = (Mathf.Sin (2.0f * Time.time) + 1.0f) * lightAmplitudeControl;
 

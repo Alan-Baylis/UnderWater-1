@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CubeControl : MonoBehaviour {
 
-	public 	Light playerLight;
+	//public 	Light playerLight;
 
 
 	// Use this for initialization
