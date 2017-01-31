@@ -6,8 +6,6 @@ using System.Collections.Generic;
 public class PredatorControl : MonoBehaviour {
 
 	public GameObject player;
-	//public GameObject follower;
-
 	public float moveForce = 5f;
 	public float followDistMax = 3.0f;
 	public float followDistMin = 0.3f;
@@ -47,7 +45,7 @@ public class PredatorControl : MonoBehaviour {
 				// this way of get component is important! we use it to talk to component and function
 
 				//make some bubbles when touched
-				GetComponent<ParticleSystem> ().Play(); 
+				//GetComponent<ParticleSystem> ().Play(); 
 			} 
 		}
 		if(minusAlready == true && gameObject != null)
@@ -78,5 +76,6 @@ public class PredatorControl : MonoBehaviour {
 		sc.enabled = false;
 		isShaking = false;
 	}
+
 
 }

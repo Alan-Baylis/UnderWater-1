@@ -7,18 +7,18 @@ using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour {
 	
-	public int followerAmount = 40;
+	public int predatorAmount;
 	public float cubeDistMin = 10.0f;
 	public float cubeDistMax = 14.0f;
-	public float followerDist = 3.0f;
+	public float predatorDist = 3.0f;
 	public float colorChangeRate = 0.01f;
 	public float whiteAlpha;
 	public float blackAlpha;
 	
-	public GameObject follower;
+	public GameObject predator;
 	public GameObject player;
 	public GameObject cube;
-	public GameObject followerPrefab;
+	public GameObject predatorPrefab;
 	public GameObject white;
 	public GameObject black; 
 
@@ -65,9 +65,9 @@ public class GameLogic : MonoBehaviour {
 	{
 		fadeIn ();
 		// make new followers
-		if (i < followerAmount) 
+		if (i < predatorAmount) 
 		{
-			makeFollower();
+			makePredator();
 		}
 		
 		bool playerMoved = false;
@@ -121,15 +121,15 @@ public class GameLogic : MonoBehaviour {
 		}
 	}
 
-	void makeFollower() 
+	void makePredator() 
 	{ 
 	    //random range is 0-11 on z and 0-23 on x
 		Vector3 rndFollowerPos = new Vector3 (Random.Range(1.0f, 22.0f), 3.0f, Random.Range(1.0f, 10.0f));
 		float dist = Vector3.Distance(player.transform.position, rndFollowerPos);
 
-		if (dist > followerDist) 
+		if (dist > predatorDist) 
 		{
-			follower = Instantiate (followerPrefab, rndFollowerPos, Quaternion.identity) as GameObject;
+			predator = Instantiate (predatorPrefab, rndFollowerPos, Quaternion.identity) as GameObject;
 			i ++;
 		}
 	}
