@@ -70,6 +70,11 @@ public class PlayerShellControl : MonoBehaviour {
 		{
 			hasWon = true;
 		}
+
+		if(other.gameObject.tag == "Predator")
+		{
+			Debug.Log("eaten");
+		}
 	}
 
 	public void followerTouched()
@@ -115,7 +120,7 @@ public class PlayerShellControl : MonoBehaviour {
 		// try to use a color changing code
 		if (speed > 0.0f && hasWon == false) 
 		{
-			GameObject.Find ("Follower(Clone)").GetComponent<AudioSource> ().Play ();
+			//GameObject.Find ("Predator(Clone)").GetComponent<AudioSource> ().Play ();
 			speed -= speedDown;
 
 		} 
