@@ -36,18 +36,18 @@ public class CameraControl : MonoBehaviour {
 	// late update is run after all update functions
 
 	void Update(){
-		transform.position = player.transform.position + offset;
+		//transform.position = player.transform.position + offset;
 
 		//transform.position = Vector3.Lerp (transform.position, player.transform.position + offset, MoveSpeed * Time.deltaTime);
 	}
 
-//	void LateUpdate () 
-//	{ 
-//		transform.position = player.transform.position + offset;
+	void LateUpdate () 
+	{ 
+		transform.position = player.transform.position + offset;
 ////
 //////  // camera rotating part 2, commend out the "+ offset" line and use below
 //////			+ (playerVelocity.normalized * -1f) + new Vector3(0,0.1f,0); 
 //////			//move the camera behind the player
 //////		transform.LookAt (player.transform);
-//	}
+	}
 }

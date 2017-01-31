@@ -12,6 +12,7 @@ public class PlayerShellControl : MonoBehaviour {
 	public GameObject player;
 	
 	private Rigidbody rb;
+	private Camera camera;//trying camera
 
 	public bool hasWon = false;
 	public bool hasLost = false;
@@ -30,6 +31,9 @@ public class PlayerShellControl : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		playerLight = GameObject.Find ("Player").GetComponent<Light>();
 		lightColor = playerLight.color;
+
+		// trying camera
+		camera = GetComponentInChildren<Camera> ();
 	}
 	
 	// Update is called once per frame
@@ -62,6 +66,10 @@ public class PlayerShellControl : MonoBehaviour {
 		movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce (movement * speed);
+
+		//trying camera, not working : (
+//		rb.transform.position += camera.transform.forward * Time.deltaTime * moveVertical;
+//		rb.transform.Rotate (0f, moveHorizontal, 0f);
 	}
 
 	void OnCollisionEnter(Collision other)
