@@ -10,6 +10,7 @@ public class PlayerShellControl : MonoBehaviour {
 	public float shakeTimer = 0.0f;
 	public Vector3 movement;
 	public GameObject player;
+//	public Camera camera;
 	
 	private Rigidbody rb;
 	private Camera camera;//trying camera
@@ -33,7 +34,7 @@ public class PlayerShellControl : MonoBehaviour {
 		lightColor = playerLight.color;
 
 		// trying camera
-		camera = GetComponentInChildren<Camera> ();
+		camera = GameObject.Find("Main Camera").GetComponentInChildren<Camera> ();
 	}
 	
 	// Update is called once per frame
@@ -64,7 +65,6 @@ public class PlayerShellControl : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 		
 		movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-
 		rb.AddForce (movement * speed);
 
 		//trying camera, not working : (
@@ -136,6 +136,7 @@ public class PlayerShellControl : MonoBehaviour {
 		if (speed <= 0.0f) 
 		{
 			speed = 0.0f;
+
 			if (hasWon != true)
 			{
 				hasLost = true;
