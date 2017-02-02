@@ -5,7 +5,9 @@ public class GroundControl : MonoBehaviour {
 
 	public float delayAdjustX;
 	public float delayAdjustZ;
-
+	float amplitude;
+	float adjustedAmplitude;
+	public float bigWaveTimer;
 	private Vector3 height;
 	private Rigidbody rb;
 
@@ -19,11 +21,20 @@ public class GroundControl : MonoBehaviour {
 	void Start () {
 		height = transform.position;
 		rb = GetComponent<Rigidbody>();
+		amplitude = 1;
+		adjustedAmplitude = 1;
+		bigWaveTimer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		if(bigWaveTimer > 0) {
+			bigWaveTimer -= Time.deltaTime;
+			if(bigWaveTimer < 0) {
+				adjustedAmplitude = 1;
+			}
+		}
 //		if (this.transform.parent.GetComponent<GroundGroupHighWaveControl>().highwaving == true){
 //			heightAdjust = new Vector3 (
 //				0.0f, 
@@ -45,8 +56,14 @@ public class GroundControl : MonoBehaviour {
 				0.0f);
 //		}
 
+		if(Mathf.Abs(heightAdjust.y) < 0.1) {
+			if(amplitude != adjustedAmplitude) {
+				bigWaveTimer = 7;
+			}
+			amplitude = adjustedAmplitude;
+		}
 //		}
-		transform.position = height + heightAdjust;
+		transform.position = height + (heightAdjust * amplitude);
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -58,5 +75,9 @@ public class GroundControl : MonoBehaviour {
 		}
 
 		Debug.Log (touchingHighWaveMaker);
+	}
+
+	public void AdjustAmplitude(float newAmp) {
+		adjustedAmplitude = newAmp;
 	}
 }

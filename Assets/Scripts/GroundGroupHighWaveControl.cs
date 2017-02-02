@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroundGroupHighWaveControl : MonoBehaviour {
 	public bool highwaving;
+	public float highwaveSize;
 	private int i;
 
 	private float waveTime = 0;
@@ -22,13 +23,22 @@ public class GroundGroupHighWaveControl : MonoBehaviour {
 			
 			i = Random.Range (0, 10);
 
-				if (i < 2) {
-					highwaving = true;
+				if (i < 1) {
+					/*highwaving = true;
+					foreach(GroundControl controller in GetComponentsInChildren<GroundControl>()) {
+						controller.AdjustAmplitude(highwaveSize);
+					}*/
 				} else {
 					highwaving = false;
 				}
 
 			waveTime = 0;
+		}
+	}
+
+	public void StartWave(float amplitude) {
+		foreach(GroundControl controller in GetComponentsInChildren<GroundControl>()) {
+			controller.AdjustAmplitude(amplitude);
 		}
 	}
 }
