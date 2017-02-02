@@ -1,72 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class PredatorControl : MonoBehaviour {
 
 	public GameObject player;
-	public float moveForce = 5f;
-	public float followDistMax = 3.0f;
-	public float followDistMin = 0.3f;
+	public GameObject gameMessager;
 
-	Rigidbody rbFollower;
+	public float predatorMF;
+	public float attackDist;
+	public float escapeDist;
+	float distToPlayer;
+
+	Rigidbody rbPredator;
 	bool minusAlready = false;
 	bool isShaking = false;
+	bool attacking = false;
+
+	public Material predatorMat;
 
 	// Use this for initialization
-	void Start () 
-	{
-		player = GameObject.Find ("Player");
-		//follower = gameObject;
-		rbFollower = GetComponent<Rigidbody> ();
+	void Start (){
+		player = GameObject.Find ("PlayerShell");
+		gameMessager = GameObject.Find ("GameMessager");
+		rbPredator = GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{	
-		float distToPlayer;
+	void Update () {
+
 		distToPlayer = Vector3.Distance(player.transform.position, transform.position);
-		if (distToPlayer < followDistMax) 
-		{
-				follow();
+
+		Debug.Log (distToPlayer);
+
+		if (distToPlayer > attackDist && attacking == false){
+			Idle ();
+		}
+
+		if (distToPlayer < attackDist){
+			Attack();
+			attacking = true;
 	     }
 
-		if (minusAlready == false) 
-		{
-			if (distToPlayer < followDistMin) 
-			{
-				if (!isShaking) {
-					StartCoroutine (ShakeRoutine ());
-				}
-				minusAlready = true;
-				moveForce = 0.0f;
-				GameObject.Find ("PlayerShell").GetComponent<PlayerShellControl> ().followerTouched ();
-				// this way of get component is important! we use it to talk to component and function
-
-				//make some bubbles when touched
-				//GetComponent<ParticleSystem> ().Play(); 
-			} 
-		}
-		if(minusAlready == true && gameObject != null)
-		{
-			// meanwhile size down
-			transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
-			
-			// when scale reach 0,detory the follower:
-			if(transform.localScale.x <= 0.0f)
-			{
-				Destroy(gameObject);
-			}
+		if (distToPlayer > escapeDist && attacking == true){
+			StopAttack ();
+			attacking = false;
 		}
 	}
 
-	void follow()
-	{
+	// fake as exist when player is far
+	void Idle(){
+		transform.Rotate (new Vector3 (45, 15, 30) * Time.deltaTime);
+	}
+
+	// attack when player is close, change apperance (un-recoverable)
+	void Attack(){
+		Debug.Log ("Attacking");
+
+		// move to player
+		transform.Rotate (new Vector3 (45, 15, 30) * 5 * Time.deltaTime);
 		Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
 		directionToPlayer.y = 0;
-		rbFollower.AddForce(directionToPlayer * moveForce);
+		rbPredator.AddForce(directionToPlayer * predatorMF);
+		predatorMat.color = new Vector4 (1,0,0,1);
 	}	
+
+	// stop attack when player escape (far enough)
+	void StopAttack(){
+		Debug.Log ("Escaped");
+	}
 
 	IEnumerator ShakeRoutine(){
 		isShaking = true;
@@ -76,6 +79,4 @@ public class PredatorControl : MonoBehaviour {
 		sc.enabled = false;
 		isShaking = false;
 	}
-
-
 }

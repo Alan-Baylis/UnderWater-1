@@ -23,12 +23,7 @@ public class GroundGroupHighWaveControl : MonoBehaviour {
 			
 			i = Random.Range (0, 10);
 
-				if (i < 1) {
-					/*highwaving = true;
-					foreach(GroundControl controller in GetComponentsInChildren<GroundControl>()) {
-						controller.AdjustAmplitude(highwaveSize);
-					}*/
-				} else {
+			if (i>=1) {
 					highwaving = false;
 				}
 

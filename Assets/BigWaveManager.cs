@@ -19,10 +19,12 @@ public class BigWaveManager : MonoBehaviour {
 			waveTimer = waveRollTime;
 			float dice = Random.value;
 			if(dice < 0.4) {
-				int wave = Random.Range(1, transform.childCount - 2);
+				int wave = Random.Range(2, transform.childCount - 3);
 				transform.GetChild(wave).GetComponent<GroundGroupHighWaveControl>().StartWave(waveSize);
 				transform.GetChild(wave - 1).GetComponent<GroundGroupHighWaveControl>().StartWave(waveSize / 2);
 				transform.GetChild(wave + 1).GetComponent<GroundGroupHighWaveControl>().StartWave(waveSize / 2);
+				transform.GetChild(wave - 2).GetComponent<GroundGroupHighWaveControl>().StartWave(waveSize / 4);
+				transform.GetChild(wave + 2).GetComponent<GroundGroupHighWaveControl>().StartWave(waveSize / 4);
 			}
 		}
 	}
