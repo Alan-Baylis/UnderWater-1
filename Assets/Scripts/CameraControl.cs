@@ -63,6 +63,9 @@ public class CameraControl : MonoBehaviour {
 		if(Vector3.Distance(transform.position, newPos) > 2){
 			transform.position = Vector3.Lerp(transform.position, newPos, 0.005f);
 		}
+		else if(Vector3.Distance(transform.position, newPos) < 1){
+			transform.position = Vector3.LerpUnclamped(newPos, transform.position, 1.005f);
+		}
 		//transform.position = player.transform.position + offset;
 ////
   // camera rotating part 2, commend out the "+ offset" line and use below
