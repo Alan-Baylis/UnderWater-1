@@ -24,7 +24,7 @@ public class GroundControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		//amplitude = GameObject.Find ("GroundGroup1").GetComponent<WholePlatformWaveChange>().waveAmplitude;
 		if(bigWaveTimer > 0) {
 			bigWaveTimer -= Time.deltaTime;
 			if(bigWaveTimer < 0) {
@@ -42,7 +42,7 @@ public class GroundControl : MonoBehaviour {
 			}
 			amplitude = adjustedAmplitude;
 		}
-		transform.position = height + (heightAdjust * amplitude);
+		transform.position = height + heightAdjust * amplitude;
 	}
 
 	public void AdjustAmplitude(float newAmp) {

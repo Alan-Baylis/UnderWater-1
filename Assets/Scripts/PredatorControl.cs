@@ -19,12 +19,14 @@ public class PredatorControl : MonoBehaviour {
 	bool attacking = false;
 
 	public Material predatorMat;
+	public Material predatorAttMat;
 
 	// Use this for initialization
 	void Start (){
 		player = GameObject.Find ("PlayerShell");
 		gameMessager = GameObject.Find ("GameMessager");
 		rbPredator = GetComponent<Rigidbody> ();
+		this.gameObject.GetComponent<Renderer> ().material = predatorMat;
 	}
 	
 	// Update is called once per frame
@@ -32,7 +34,7 @@ public class PredatorControl : MonoBehaviour {
 
 		distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-		Debug.Log (distToPlayer);
+//		Debug.Log (distToPlayer);
 
 		if (distToPlayer > attackDist && attacking == false){
 			Idle ();
@@ -56,14 +58,14 @@ public class PredatorControl : MonoBehaviour {
 
 	// attack when player is close, change apperance (un-recoverable)
 	void Attack(){
-		Debug.Log ("Attacking");
-
 		// move to player
 		transform.Rotate (new Vector3 (45, 15, 30) * 5 * Time.deltaTime);
 		Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
 		directionToPlayer.y = 0;
 		rbPredator.AddForce(directionToPlayer * predatorMF);
-		predatorMat.color = new Vector4 (1,0,0,1);
+
+		// change color
+		this.gameObject.GetComponent<Renderer> ().material = predatorAttMat;
 	}	
 
 	// stop attack when player escape (far enough)

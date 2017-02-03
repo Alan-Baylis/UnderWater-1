@@ -51,14 +51,14 @@ public class PlayerShellControl : MonoBehaviour {
 			GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Lose();
 		}
 
-//		// if fall off the platform, player lose
-//		if (transform.position.y < 0)
-//		{
-//			if (hasWon != true)
-//			{
-//				GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Lose();
-//			}
-//		}
+		// if fall off the platform, player lose
+		if (transform.position.y < -5)
+		{
+			if (hasWon != true)
+			{
+				GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Lose();
+			}
+		}
 	}
 	
 	void FixedUpdate()
@@ -81,16 +81,16 @@ public class PlayerShellControl : MonoBehaviour {
 			hasWon = true;
 		}
 
-		if(other.gameObject.tag == "Predator")
+		if(other.gameObject.tag == "Predator" && hasWon == false)
 		{
-			Debug.Log ("Eaten!");
+			gameMessager.GetComponent<Text> ().text = "You got eaten!";
+			hasLost = true;
 		}
 	}
 
-	public void PredatorTouched(){
-		gameMessager.GetComponent<Text> ().text = "predator touched you!";
-		//Debug.Log ("PredatorTouched!");
-	}
+//	public void PredatorTouched(){
+//		Debug.Log ("PredatorTouched!");
+//	}
 
 //	// when follower touched, reduce light and speed
 //	public void followerTouched()

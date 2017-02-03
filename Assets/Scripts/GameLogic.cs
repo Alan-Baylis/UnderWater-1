@@ -14,15 +14,16 @@ public class GameLogic : MonoBehaviour {
 	public float colorChangeRate = 0.01f;
 	public float whiteAlpha;
 	public float blackAlpha;
-	
-	public GameObject predator;
+
 	public GameObject player;
 	public GameObject cube;
+	public GameObject predator;
 	public GameObject predatorPrefab;
+	//public GameObject follower;
+	//public GameObject followerPrefab;
 	public GameObject white;
 	public GameObject black; 
 	public GameObject gameMessager;
-
 	public GameObject whiteScreen;
 
 	public Color winColor;
@@ -37,7 +38,7 @@ public class GameLogic : MonoBehaviour {
 
 	public Material predatorMat;
 
-	int i = 1;
+	private int i = 1;
 
 	// Use this for initialization
 	void Start () 
@@ -50,14 +51,10 @@ public class GameLogic : MonoBehaviour {
 		cube = Instantiate (Resources.Load("Cube")) as GameObject;
 		makeCube ();
 
-	// iniciating the win / lose scene
-	// before game is won or lost, they are transparent
+	// iniciating the win / lose scene, transparent before end game
 		winColor = new Vector4(1.0f, 1.0f, 1.0f, 0.0f);
 		loseColor = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 		grayText = new Vector4 (0.5f, 0.5f, 0.5f, 0.0f);
-
-		white = GameObject.Find("White");
-		black = GameObject.Find("Black");
 
 		//load the old colors
 		whiteAlpha = PlayerPrefs.GetFloat ("WhiteAlpha");
