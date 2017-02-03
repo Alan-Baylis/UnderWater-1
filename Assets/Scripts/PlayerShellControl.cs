@@ -66,9 +66,9 @@ public class PlayerShellControl : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		
-		movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+		movement = Camera.main.transform.forward * moveVertical;//new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		rb.AddForce (movement * speed);
-
+		Camera.main.transform.RotateAround(transform.position, Vector3.up, moveHorizontal);
 		//trying camera, not working : (
 //		rb.transform.position += camera.transform.forward * Time.deltaTime * moveVertical;
 //		rb.transform.Rotate (0f, moveHorizontal, 0f);

@@ -46,7 +46,7 @@ public class CoralControl : MonoBehaviour {
 			}
 		}
 
-		Debug.Log (player.GetComponent<PlayerShellControl> ().speed);
+		//Debug.Log (player.GetComponent<PlayerShellControl> ().speed);
 	}
 
 	void SpeedDown(){
