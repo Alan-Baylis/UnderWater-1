@@ -73,4 +73,5 @@ public class CameraControl : MonoBehaviour {
 			//move the camera behind the player
 //		transform.LookAt (player.transform);
 	}
+
 }

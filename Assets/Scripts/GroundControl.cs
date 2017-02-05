@@ -8,7 +8,7 @@ public class GroundControl : MonoBehaviour {
 	float amplitude;
 	float adjustedAmplitude;
 	public float bigWaveTimer;
-	private Vector3 height;
+	private Vector3 position;
 
 	public bool touchingHighWaveMaker = false;
 
@@ -16,7 +16,7 @@ public class GroundControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		height = transform.position;
+		position = transform.position;
 		amplitude = 1;
 		adjustedAmplitude = 1;
 		bigWaveTimer = 0;
@@ -42,10 +42,15 @@ public class GroundControl : MonoBehaviour {
 			}
 			amplitude = adjustedAmplitude;
 		}
-		transform.position = height + heightAdjust * amplitude;
+		transform.position = position + heightAdjust * amplitude;
 	}
 
 	public void AdjustAmplitude(float newAmp) {
 		adjustedAmplitude = newAmp;
+	}
+
+	public void MoveCube(Vector3 newPosition) {
+		newPosition.y = 0;
+		position = newPosition;
 	}
 }
