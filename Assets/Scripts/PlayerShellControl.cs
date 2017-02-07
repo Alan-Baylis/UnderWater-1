@@ -41,6 +41,8 @@ public class PlayerShellControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		Debug.Log (speed);
+
 		if (hasWon == true) 
 		{
 			GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Win();
