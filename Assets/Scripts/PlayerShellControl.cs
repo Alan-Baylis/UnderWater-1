@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 
 public class PlayerShellControl : MonoBehaviour {
-	public float speed = 7.0f; 
-	public float floatingControl = 0.05f;
-	public float speedDown = 1.5f;
-	public int touchCount = 0;
-	public float shakeTimer = 0.0f;
+	public float speed; 
+	public float floatingControl;
+	public float speedDown;
+	public int touchCount;
+	public float shakeTimer;
 	public Vector3 movement;
 	public GameObject player;
 	public GameObject gameMessager;
@@ -41,8 +41,6 @@ public class PlayerShellControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.Log (speed);
-
 		if (hasWon == true) 
 		{
 			GameObject.Find ("GameMaster").GetComponent<GameLogic> ().Win();

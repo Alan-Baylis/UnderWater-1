@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GroundControl : MonoBehaviour {
 
-	public float delayAdjustX;
-	public float delayAdjustZ;
+//	public float delayAdjustX;
+//	public float delayAdjustZ;
 	float amplitude;
 	float adjustedAmplitude;
 	public float bigWaveTimer;
@@ -21,7 +21,7 @@ public class GroundControl : MonoBehaviour {
 		adjustedAmplitude = 1;
 		bigWaveTimer = 0;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//amplitude = GameObject.Find ("GroundGroup1").GetComponent<WholePlatformWaveChange>().waveAmplitude;
@@ -33,7 +33,7 @@ public class GroundControl : MonoBehaviour {
 		}
 			heightAdjust = new Vector3 (
 				0.0f, 
-				Mathf.Sin (Time.time - transform.position.x * delayAdjustX - transform.position.z * delayAdjustZ), 
+				Mathf.Sin (Time.time - transform.position.x * 0.2f - transform.position.z * 0.2f), 
 				0.0f);
 
 		if(Mathf.Abs(heightAdjust.y) < 0.1) {
