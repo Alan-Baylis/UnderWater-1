@@ -14,12 +14,12 @@ public class CoralOut : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		heightAdjust = new Vector3 (
-			0.0f, 
-			Mathf.Sin (Time.time - transform.position.x * 0.2f - transform.position.z * 0.2f), 
-			0.0f);
-
-		transform.position = position + heightAdjust;
+//		heightAdjust = new Vector3 (
+//			0.0f, 
+//			Mathf.Sin (Time.time - transform.position.x * 0.2f - transform.position.z * 0.2f), 
+//			0.0f);
+//
+//		transform.position = position + heightAdjust;
 	}
 
 	void OnCollisionEnter(Collision other)

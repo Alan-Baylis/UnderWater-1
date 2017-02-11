@@ -5,7 +5,7 @@ using UnityEngine;
 public class GroundTestScripts : MonoBehaviour {
 
 	Vector3 posOri;
-	Vector3 posAdjust;
+	Vector3 posTemp;
 
 	// Use this for initialization
 	void Start () {
@@ -16,23 +16,70 @@ public class GroundTestScripts : MonoBehaviour {
 	void Update () {
 //		Circle ();
 //		Tan();
-		EvenOdd();
-
-		transform.position = posOri + posAdjust;
+//		EvenOdd();
+//		RotateAround();
+//		Linear ();
+		Square (); // noding 
 	}
 		
 	void Circle(){
-		posAdjust = new Vector3 (0.0f, Mathf.Sin(Time.time),0.0f);
+//		posTemp = new Vector3 (
+//			Mathf.Cos(Time.time-transform.position.x), 
+//			Mathf.Sin(Time.time-transform.position.x), 
+//			Mathf.Sqrt(1-Mathf.Pow(0.5f * Mathf.Cos(Time.time-transform.position.x),2)-Mathf.Pow(0.5f * Mathf.Sin(Time.time-transform.position.x),2)));
+
+//		posTemp = new Vector3 (
+//			0.0f, 
+//			Mathf.Cos(Time.time-transform.position.x)*Mathf.Sin(Time.time-transform.position.x),
+//			0.0f);
+
+//		posTemp = new Vector3 (
+//			0.0f, 
+//			Mathf.Cos(Time.time-transform.position.x)*Mathf.Sin(Time.time-transform.position.z),
+//			0.0f);
+//
+		posTemp = new Vector3 (
+			0.0f, 
+			Mathf.Cos(Time.time-transform.position.z*0.2f)*Mathf.Sin(Time.time-transform.position.z*0.2f),
+			0.0f);
+
+		transform.position = posOri + posTemp;
 	}
 
 	void Tan(){
-		posAdjust = new Vector3 (0, Mathf.Tan(Time.time),0.0f);
+		posTemp = new Vector3 (0, Mathf.Tan(Time.time),0.0f);
+		transform.position = posOri + posTemp;
 	}
 
 	void EvenOdd(){
-		posAdjust = new Vector3 (
+		posTemp = new Vector3 (
 			0.0f, 
-			Mathf.Tan(Time.time)* Mathf.Pow(-1, Mathf.RoundToInt(transform.position.x+transform.position.z)),
+			Mathf.Sin(Time.time)* Mathf.Pow(-1, Mathf.RoundToInt(transform.position.x+transform.position.z)),
+//			0.0f,
 			0.0f);
+		transform.position = posOri + posTemp;
+	}
+
+	void RotateAround(){
+//		transform.RotateAround(
+//			/*Vector3.zero*/ posOri, 
+//			/*Vector3.up*/ /*new Vector3 (0.0f, (transform.position.x+transform.position.y-transform.position.z),0.0f)*/
+//			Vector3.one, 
+//			20 * Time.deltaTime * (Mathf.Sin(Time.time/*+posOri.x*/)+posOri.x));
+
+		transform.RotateAround(
+			posOri, 
+			Vector3.one, 
+			20 * Time.deltaTime * ((Mathf.Sin(Time.time+transform.position.x-posOri.x)+1)));
+	}
+
+	void Linear (){
+		posTemp.x = Mathf.Sin(Time.time)*posOri.z + posOri.y;
+		transform.position = posTemp + posOri;
+	}
+
+	void Square(){
+		posTemp.y = Mathf.Sqrt (Mathf.Abs (Mathf.Sin (Time.time)));
+		transform.position = posOri + posTemp;
 	}
 }
