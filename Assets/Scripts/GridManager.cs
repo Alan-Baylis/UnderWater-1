@@ -27,18 +27,24 @@ public class GridManager : MonoBehaviour {
 			string temp = levelMap.text;
 			string[] lines = temp.Split('\n');
 
-			GameObject tempBlock = Resources.Load<GameObject>("Cube");
+			GameObject tempBlock = Resources.Load<GameObject>("GroundHiddenWave");
 
 			SetGridDimensions(lines);
 			for(int i = 0; i < lines.Length; i++) {
 				char[] blocks = lines[i].ToCharArray();
 				for(int k = 0; k < blocks.Length; k++) {
-					//tempBlock = ParseBlockType(blocks[k]);
+					int xPos = Mathf.RoundToInt(k / 2);
+					k++;
+					tempBlock = ParseBlockType(blocks[k]);
 					if(tempBlock != null) {
-						grid[k, i] = (GameObject)Instantiate(tempBlock, new Vector3(k, 0, i), Quaternion.identity);
+						grid[xPos, i] = (GameObject)Instantiate(tempBlock, new Vector3(xPos, float.Parse(blocks[k].ToString()) * 0.7f, i), Quaternion.identity);
 					}
 				}
 			}
+		}
+
+		for(int i = 0; i < 100; i++) {
+			
 		}
 	}
 
@@ -46,8 +52,8 @@ public class GridManager : MonoBehaviour {
 		int height = lines.Length;
 		int width = 0;
 		foreach(string line in lines) {
-			if(line.Length > width) {
-				width = line.Length;
+			if(Mathf.RoundToInt(line.Length / 2) > width) {
+				width = Mathf.RoundToInt(line.Length / 2);
 			}
 		}
 
@@ -58,7 +64,8 @@ public class GridManager : MonoBehaviour {
 		// Used for inifinite mode
 	}
 
-	GameObject[] GetOrthogonalNeighbors(Transform cube) {
+	GameObject[] GetOrthogonalNeighbors(GameObject cubeToCheck) {
+		GameObject[] returnVal;
 		return new GameObject[] {};
 	}
 
@@ -76,5 +83,14 @@ public class GridManager : MonoBehaviour {
 
 	void StartSeismicWave(int x, int y) {
 		
+	}
+
+	GameObject ParseBlockType(char type) {
+		switch(type) {
+			case 'x':
+			return Resources.Load<GameObject>("GroundHiddenWave");
+		default:
+			return Resources.Load<GameObject>("GroundHiddenWave");
+		} ;
 	}
 }
