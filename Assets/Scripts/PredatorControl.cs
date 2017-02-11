@@ -81,4 +81,12 @@ public class PredatorControl : MonoBehaviour {
 		sc.enabled = false;
 		isShaking = false;
 	}
+
+	void OnCollisionEnter(Collision other)
+	{
+		if(other.gameObject.tag == "Predator")
+		{
+			GameObject.Destroy (other.gameObject);
+		}
+	}
 }

@@ -84,7 +84,7 @@ public class PlayerShellControl : MonoBehaviour {
 		if(other.gameObject.tag == "Predator" && hasWon == false)
 		{
 			gameMessager.GetComponent<Text> ().text = "You got eaten!";
-			hasLost = true;
+			//hasLost = true;
 		}
 	}
 
