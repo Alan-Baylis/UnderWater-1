@@ -43,7 +43,6 @@ public class GridManager : MonoBehaviour {
 					}
 				}
 			}
-		StartWaterWave(0);
 		}
 	}
 
@@ -134,7 +133,7 @@ public class GridManager : MonoBehaviour {
 	GameObject ParseBlockType(char type) {
 		switch(type) {
 			case 'x':
-			return Resources.Load<GameObject>("BasicCube");
+				return Resources.Load<GameObject>("BasicCube");
 		default:
 			return Resources.Load<GameObject>("BasicCube");
 		} ;
