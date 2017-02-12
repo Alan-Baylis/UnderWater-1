@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour {
 
 	List<GameObject> cubePool; // For object pooling down the line
 	public TextAsset levelMap;
+	public float heightUnit = 0.7f;
 	GameObject[,] grid;
 
 	public delegate void CubeTransform();
@@ -28,8 +29,8 @@ public class GridManager : MonoBehaviour {
 			string temp = levelMap.text;
 			string[] lines = temp.Split('\n');
 
-			GameObject tempBlock = Resources.Load<GameObject>("GroundHiddenWave");
-
+			GameObject tempBlock = Resources.Load<GameObject>("BasicCube");
+			CubeBehavior.gridManager = this;
 			SetGridDimensions(lines);
 			for(int i = 0; i < lines.Length; i++) {
 				char[] blocks = lines[i].ToCharArray();
@@ -38,10 +39,11 @@ public class GridManager : MonoBehaviour {
 					k++;
 					tempBlock = ParseBlockType(blocks[k]);
 					if(tempBlock != null) {
-						grid[xPos, i] = (GameObject)Instantiate(tempBlock, new Vector3(xPos, float.Parse(blocks[k].ToString()) * 0.7f, i), Quaternion.identity);
+						grid[xPos, i] = (GameObject)Instantiate(tempBlock, new Vector3(xPos, float.Parse(blocks[k].ToString()) * heightUnit, i), Quaternion.identity);
 					}
 				}
 			}
+		StartWaterWave(0);
 		}
 	}
 
@@ -62,23 +64,24 @@ public class GridManager : MonoBehaviour {
 	}
 
 	GameObject[] GetOrthogonalNeighbors(GameObject cubeToCheck) {
-		List<GameObject> returnVal = new List<GameObject>();
+		GameObject[] returnVal = new GameObject[4];
 		Vector2 gridPos = FindCubePosition(cubeToCheck);
 		int x = Mathf.RoundToInt(gridPos.x);
 		int y = Mathf.RoundToInt(gridPos.y);
-		if(x > 0 && CubeExistsAt(x - 1, y)) {
-			returnVal.Add(grid[x - 1, y]);
-		}
-		if(x < grid.GetLength(0) - 2 && CubeExistsAt(x + 1, y)) {
-			returnVal.Add(grid[x + 1, y] );
+		if(y < grid.GetLength(1) - 2 && CubeExistsAt(x, y + 1)) {
+			returnVal[0] = grid[x, y + 1];
 		}
 		if(y > 0 && CubeExistsAt(x, y -1)) {
-			returnVal.Add(grid[x, y - 1]);
+			returnVal[1] = grid[x, y - 1];
 		}
-		if(y < grid.GetLength(1) - 2 && CubeExistsAt(x, y + 1)) {
-			returnVal.Add(grid[x, y + 1]);
+		if(x > 0 && CubeExistsAt(x - 1, y)) {
+			returnVal[2] = grid[x - 1, y];
 		}
-		return returnVal.ToArray();
+		if(x < grid.GetLength(0) - 2 && CubeExistsAt(x + 1, y)) {
+			returnVal[3] = grid[x + 1, y] ;
+		}
+		 
+		return returnVal;
 	}
 
 	GameObject[] GetDiagonalNeighbors(GameObject cubeToCheck) {
@@ -116,8 +119,12 @@ public class GridManager : MonoBehaviour {
 		return orthogonal;
 	}
 
-	void StartWaterWave(int height) {
-		
+	void StartWaterWave(int row) {
+		for(int i = 0; i < grid.GetLength(0); i++) {
+			if(!grid[i, row].Equals(null) && grid[i, row].tag == "GroundCube") {
+				grid[i, row].GetComponent<CubeBehavior>().StartBigWave();
+			}
+		}
 	}
 
 	void StartSeismicWave(int x, int y) {
@@ -127,9 +134,9 @@ public class GridManager : MonoBehaviour {
 	GameObject ParseBlockType(char type) {
 		switch(type) {
 			case 'x':
-			return Resources.Load<GameObject>("GroundHiddenWave");
+			return Resources.Load<GameObject>("BasicCube");
 		default:
-			return Resources.Load<GameObject>("GroundHiddenWave");
+			return Resources.Load<GameObject>("BasicCube");
 		} ;
 	}
 
@@ -152,4 +159,5 @@ public class GridManager : MonoBehaviour {
 	bool CubeExistsAt(Vector2 pos) {
 		return grid[Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y)] != null;
 	}
+
 }
