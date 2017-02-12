@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum CubeType {Sine};
 public class GridManager : MonoBehaviour {
@@ -15,9 +16,6 @@ public class GridManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateGrid();
-		foreach(GameObject cube in GetDiagonalNeighbors(grid[2,1])) {
-			cube.transform.position += new Vector3(0, 10, 0);
-		}
 	}
 	
 	// Update is called once per frame
@@ -107,8 +105,15 @@ public class GridManager : MonoBehaviour {
 		return returnVal.ToArray();
 	}
 
-	GameObject[] GetAllNeighbors(Transform cube) {
-		return new GameObject[] {};
+	GameObject[] GetAllNeighbors(GameObject cube) {
+		GameObject[] orthogonal = GetOrthogonalNeighbors(cube);
+		GameObject[] diagonal = GetDiagonalNeighbors(cube);
+		Debug.Log(orthogonal.Length);
+		Debug.Log(diagonal.Length);
+		Array.Resize<GameObject>(ref orthogonal, orthogonal.Length + diagonal.Length + 1);
+		Debug.Log(orthogonal.Length);
+		Array.Copy(diagonal, 0, orthogonal, orthogonal.Length + 1, diagonal.Length);
+		return orthogonal;
 	}
 
 	void StartWaterWave(int height) {
