@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateGrid();
-		foreach(GameObject cube in GetOrthogonalNeighbors(grid[2,1])) {
+		foreach(GameObject cube in GetDiagonalNeighbors(grid[2,1])) {
 			cube.transform.position += new Vector3(0, 10, 0);
 		}
 	}
@@ -83,8 +83,28 @@ public class GridManager : MonoBehaviour {
 		return returnVal.ToArray();
 	}
 
-	GameObject[] GetDiagonalNeighbors(Transform cube) {
-		return new GameObject[] {};
+	GameObject[] GetDiagonalNeighbors(GameObject cubeToCheck) {
+		List<GameObject> returnVal = new List<GameObject>();
+		Vector2 gridPos = FindCubePosition(cubeToCheck);
+		int x = Mathf.RoundToInt(gridPos.x);
+		int y = Mathf.RoundToInt(gridPos.y);
+		if(x > 0) {
+			if(y > 0 && CubeExistsAt(x - 1, y - 1)){ 
+				returnVal.Add(grid[x - 1, y - 1]);
+				}
+			if(y < grid.GetLength(1) - 2 && CubeExistsAt(x - 1, y + 1)) {
+				returnVal.Add(grid[x - 1, y + 1]);
+			}
+		}
+		if(x < grid.GetLength(0) - 2) {
+			if(y > 0 && CubeExistsAt(x + 1, y - 1)){ 
+				returnVal.Add(grid[x + 1, y - 1]);
+				}
+			if(y < grid.GetLength(1) - 2 && CubeExistsAt(x + 1, y + 1)) {
+				returnVal.Add(grid[x + 1, y + 1]);
+			}
+		}
+		return returnVal.ToArray();
 	}
 
 	GameObject[] GetAllNeighbors(Transform cube) {
