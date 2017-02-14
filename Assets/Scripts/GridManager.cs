@@ -36,8 +36,8 @@ public class GridManager : MonoBehaviour {
 				char[] blocks = lines[i].ToCharArray();
 				for(int k = 0; k < blocks.Length; k++) {
 					int xPos = Mathf.RoundToInt(k / 2);
-					k++;
 					tempBlock = ParseBlockType(blocks[k]);
+					k++;
 					if(tempBlock != null) {
 						grid[xPos, i] = (GameObject)Instantiate(tempBlock, new Vector3(xPos, float.Parse(blocks[k].ToString()) * heightUnit, i), Quaternion.identity);
 					}
@@ -132,10 +132,10 @@ public class GridManager : MonoBehaviour {
 
 	GameObject ParseBlockType(char type) {
 		switch(type) {
-			case 'x':
-				return Resources.Load<GameObject>("BasicCube");
+		case 'x':
+			return Resources.Load<GameObject> ("Ground-plain");
 		default:
-			return Resources.Load<GameObject>("BasicCube");
+			return null;//Resources.Load<GameObject>("Empty"); // make an empty object prefab as default
 		} ;
 	}
 

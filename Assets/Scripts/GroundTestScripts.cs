@@ -16,10 +16,10 @@ public class GroundTestScripts : MonoBehaviour {
 	void Update () {
 //		Circle ();
 //		Tan();
-//		EvenOdd();
+		EvenOdd();
 //		RotateAround();
 //		Linear ();
-		Square (); // noding 
+//		Square (); // noding 
 	}
 		
 	void Circle(){
